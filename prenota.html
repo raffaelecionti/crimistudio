@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prenota ora | Crimi Studio</title>
+  <meta name="description" content="Prenota Crimi Studio: affitto studio senza fonico, sessioni con fonico e mix & master.">
+  <meta name="theme-color" content="#050608">
+
+  <!--google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+
+  <!--css style-->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-info page-book">
+  <!--navbar (sulle pagine interne è sempre leggibile)-->
+  <header class="nav is-solid" id="nav">
+    <a class="nav-brand" href="./index.html">CRIMISTUDIO</a>
+
+    <nav class="nav-links" aria-label="Menu principale">
+      <a href="./info.html">Informazioni</a>
+      <a href="./contact.html">Contatti</a>
+    </nav>
+
+    <a class="btn-cream btn-nav" href="./prenota.html">Prenota ora</a>
+  </header>
+
+  <main>
+    <!--intestazione-->
+    <section class="info-hero">
+      <h1 class="info-title" data-reveal>PRENOTA ORA</h1>
+      <p class="info-lead" data-reveal style="--d: 0.12s">Scegli il servizio, la data e l'orario: la conferma arriva su WhatsApp.</p>
+    </section>
+
+    <!-- ============ 01 — AFFITTO SENZA FONICO ============ -->
+    <section class="book-section" id="affitto" aria-labelledby="t-affitto">
+      <header class="book-head" data-reveal>
+        <h2 class="book-title" id="t-affitto">Affitto studio senza fonico</h2>
+      </header>
+
+      <div class="book-panel" data-reveal>
+        <!--colonna sinistra: calendario-->
+        <div class="book-col">
+          <h3 class="book-step">Scegli la data</h3>
+
+          <div class="cal" id="cal">
+            <div class="cal-bar">
+              <button class="cal-nav" id="calPrev" type="button" aria-label="Mese precedente">&#8592;</button>
+              <p class="cal-month" id="calTitle" aria-live="polite"></p>
+              <button class="cal-nav" id="calNext" type="button" aria-label="Mese successivo">&#8594;</button>
+            </div>
+
+            <div class="cal-week" aria-hidden="true">
+              <span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span>
+            </div>
+
+            <div class="cal-grid" id="calGrid"></div>
+          </div>
+
+          <ul class="cal-legend" aria-label="Legenda del calendario">
+            <li><i class="lg lg-free"></i>Disponibile</li>
+            <li><i class="lg lg-off"></i>Non disponibile</li>
+            <li><i class="lg lg-sel"></i>Selezionato</li>
+          </ul>
+        </div>
+
+        <!--colonna destra: orario, durata, totale-->
+        <div class="book-col">
+          <h3 class="book-step">Orario di inizio</h3>
+          <div class="slots" id="slots" role="group" aria-label="Orario di inizio"></div>
+
+          <fieldset class="duration">
+            <legend class="book-step">Durata della sessione</legend>
+            <div class="seg" id="durGroup">
+              <label><input type="radio" name="durata" value="1"><span>1 ora</span></label>
+              <label><input type="radio" name="durata" value="2"><span>2 ore</span></label>
+              <label><input type="radio" name="durata" value="3"><span>3 ore</span></label>
+              <label><input type="radio" name="durata" value="4"><span>4 ore</span></label>
+              <label><input type="radio" name="durata" value="5"><span>5 ore</span></label>
+            </div>
+            <p class="dur-note">Per sessioni più lunghe <a href="./contatti.html">contattaci</a>.</p>
+          </fieldset>
+
+          <div class="total">
+            <p class="total-label">Totale prenotazione</p>
+            <p class="total-value" id="totalValue" aria-live="polite">€ —</p>
+          </div>
+
+          <button class="btn-cream btn-wide btn-block" id="rentBtn" type="button" disabled>Prepara la richiesta</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 — SESSIONI CON FONICO ============ -->
+    <section class="book-section" id="fonico" aria-labelledby="t-fonico">
+      <header class="book-head" data-reveal>
+        <h2 class="book-title" id="t-fonico">Sessioni con fonico</h2>
+      </header>
+
+      <div class="offers">
+        <article class="offer offer-promo" data-reveal>
+          <p class="offer-tag">Promo</p>
+          <h3 class="offer-name">4 ore + 1 mix &amp; master</h3>
+          <p class="offer-price">100 €</p>
+          <p class="offer-text">Sessione in studio con fonico e servizio mix &amp; master incluso, secondo le condizioni del pacchetto.</p>
+          <button class="btn-cream offer-btn" type="button"
+                  data-name="Promo: 4 ore + 1 mix & master" data-price="100" data-hours="4">Scegli la promo</button>
+        </article>
+
+        <article class="offer" data-reveal style="--d: 0.15s">
+          <p class="offer-tag offer-tag-plain">Sessione</p>
+          <h3 class="offer-name">Sessione con fonico — 2 ore</h3>
+          <p class="offer-price">50 €</p>
+          <p class="offer-text">Due ore di registrazione con fonico.</p>
+          <button class="btn-cream offer-btn" type="button"
+                  data-name="Sessione con fonico — 2 ore" data-price="50" data-hours="2">Scegli la sessione</button>
+        </article>
+      </div>
+
+      <p class="offer-note" id="offerNote" role="status"></p>
+    </section>
+
+    <!-- ============ 04 — QUALCOSA DI DIVERSO ============ -->
+    <section class="book-section book-last" id="altro" aria-labelledby="t-altro">
+      <div class="book-other" data-reveal>
+        <h2 class="book-title" id="t-altro">Hai bisogno di qualcosa di diverso?</h2>
+        <p class="book-text">Per EP, progetti completi, sessioni più lunghe, pacchetti personalizzati o informazioni, contattaci direttamente.</p>
+        <a class="btn-cream btn-wide" href="./contatti.html">Contattaci</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer footer-short">
+    <p>CRIMI STUDIO</p>
+  </footer>
+
+  <!-- ============ POPUP DI CONFERMA WHATSAPP ============ -->
+  <dialog class="bk-dialog" id="bkDialog" aria-labelledby="bkTitle">
+    <button class="lb-close" id="bkClose" type="button" aria-label="Chiudi">CHIUDI</button>
+
+    <h2 class="bk-title" id="bkTitle">Richiesta pronta!</h2>
+    <p class="bk-sub">La tua richiesta di prenotazione è stata preparata.</p>
+
+    <dl class="bk-sum">
+      <div><dt>Servizio</dt><dd id="sumService"></dd></div>
+      <div><dt>Data</dt><dd id="sumDate"></dd></div>
+      <div><dt>Orario e durata</dt><dd id="sumTime"></dd></div>
+      <div class="bk-total"><dt>Totale</dt><dd id="sumTotal"></dd></div>
+    </dl>
+
+    <a class="btn-cream btn-wide btn-block" id="bkWhatsapp" href="#" target="_blank" rel="noopener">Richiedi conferma su WhatsApp</a>
+    <p class="bk-fine">La prenotazione non è definitiva finché lo studio non conferma la disponibilità.</p>
+  </dialog>
+
+  <!--js del sito-->
+  <script src="script.js"></script>
+  <!--js della prenotazione (qui si cambiano tariffe, orari e giorni bloccati)-->
+  <script src="prenota.js"></script>
+</body>
+</html>

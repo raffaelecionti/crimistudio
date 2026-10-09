@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crimi Studio | Studio di registrazione</title>
+  <meta name="description" content="Crimi Studio, studio di registrazione.">
+  <meta name="theme-color" content="#050608">
+
+  <!--google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+
+  <!--css style-->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!--navbar-->
+  <header class="nav" id="nav">
+    <a class="nav-brand" href="#top">CRIMISTUDIO</a>
+
+    <nav class="nav-links" aria-label="Menu principale">
+      <!-- da collegare alle pagine del sito quando esisteranno -->
+      <a href="./info.html">Informazioni</a>
+      <a href="./contact.html">Contatti</a>
+    </nav>
+
+    <a class="btn-cream btn-nav" href="./prenota.html">Prenota ora</a>
+  </header>
+
+  <main id="top">
+    <!--
+      Il "track" è alto 2 schermi: la hero resta fissa (sticky) mentre
+      scorri, e lo script chiude il video dal basso rivelando la fascia
+      nera con la scritta che scorre e il pulsante.
+    -->
+    <div class="hero-track" id="heroTrack">
+      <section class="hero" id="hero" aria-label="Crimi Studio">
+
+        <!--fascia nera sotto il video: si scopre scorrendo-->
+        <div class="hero-bottom">
+          <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+              <span>PRENOTA UNA SESSIONE</span><span>PRENOTA UNA SESSIONE</span><span>PRENOTA UNA SESSIONE</span><span>PRENOTA UNA SESSIONE</span>
+              <span>PRENOTA UNA SESSIONE</span><span>PRENOTA UNA SESSIONE</span><span>PRENOTA UNA SESSIONE</span><span>PRENOTA UNA SESSIONE</span>
+            </div>
+          </div>
+          <a class="btn-cream btn-wide" href="./prenota.html">Prenota una sessione</a>
+        </div>
+
+        <!--video + logo: questo blocco viene ritagliato dal basso allo scroll-->
+        <div class="hero-media" id="heroMedia">
+          <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="./media/hero-poster.jpg" aria-hidden="true">
+            <source src="./media/hero.mp4" type="video/mp4">
+            <source src="./media/hero.webm" type="video/webm">
+          </video>
+          <div class="hero-shade" aria-hidden="true"></div>
+
+          <h1 class="hero-logo-wrap" id="heroLogo">
+            <img class="hero-logo" src="./media/logo (1).png" alt="Crimi Studio" width="799" height="255">
+          </h1>
+
+          <button class="video-toggle" id="videoToggle" type="button" aria-label="Metti in pausa il video">PAUSA</button>
+
+          <a class="scroll-cue" href="#fine" aria-label="Scorri">
+            <span>SCORRI</span>
+            <i></i>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" id="fine">
+    <p>CRIMI STUDIO</p>
+  </footer>
+
+  <!--js del sito-->
+  <script src="script.js"></script>
+</body>
+</html>

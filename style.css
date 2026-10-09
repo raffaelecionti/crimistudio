@@ -1,0 +1,1413 @@
+/* =========================================================
+   CRIMI STUDIO - style.css
+   ========================================================= */
+
+/* ---------- 1. Variabili ---------- */
+:root {
+  --black: #050608;
+  --cream: #efedc9;      /* crema, come nel sito di riferimento */
+  --blue: #2f6bff;       /* il blu dei led dello studio */
+  --veil: 0.45;          /* effetto opaco sul video: 0 = nessuno, 1 = tutto nero */
+  --font: "Archivo", system-ui, sans-serif;
+  --display: "Archivo Black", "Archivo", sans-serif;
+}
+
+/* ---------- 2. Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--black);
+}
+
+body {
+  margin: 0;
+  background: var(--black);
+  color: var(--cream);
+  font-family: var(--font);
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+/* ---------- 3. Pulsanti crema ---------- */
+.btn-cream {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--cream);
+  color: #0a0b0d;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.01em;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-cream:hover,
+.btn-cream:focus-visible {
+  background: var(--blue);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-wide {
+  padding: 1rem 3.4rem;
+  font-size: 0.95rem;
+}
+
+/* ---------- 4. Navbar ---------- */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.1rem clamp(1rem, 3vw, 2.2rem);
+  transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+}
+
+/* dopo la hero la barra diventa leggibile su qualsiasi sfondo */
+.nav.is-solid {
+  background: rgba(5, 6, 8, 0.72);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.nav-brand {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  margin-left: auto;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.nav-links a {
+  position: relative;
+  padding: 0.2rem 0;
+}
+
+/* sottolineatura che cresce */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--cream);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.btn-nav {
+  padding: 0.65rem 1.2rem;
+  font-size: 0.8rem;
+}
+
+/* ---------- 5. Hero: il track dà lo spazio per lo scroll, la hero resta fissa ---------- */
+.hero-track {
+  position: relative;
+  height: 200vh;
+  height: 200svh;
+}
+
+.hero {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--black);
+}
+
+/* blocco video + logo: lo script alza --cut e lo ritaglia dal basso */
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  clip-path: inset(0 0 var(--cut, 0%) 0);
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* velo opaco sul video: la forza si regola con --veil (in cima al file) */
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 6, 8, 0.55) 0%, rgba(5, 6, 8, 0) 28%, rgba(5, 6, 8, 0) 70%, rgba(5, 6, 8, 0.35) 100%),
+    rgba(5, 6, 8, var(--veil));
+  pointer-events: none;
+}
+
+/* ---------- 6. Logo gigante ---------- */
+.hero-logo-wrap {
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  z-index: 2;
+  margin: 0;
+  width: min(80vw, 125vh);
+  /* --ly sale con lo scroll (lo scrive script.js) */
+  transform: translate3d(-50%, calc(-50% + var(--ly, 0px)), 0);
+  will-change: transform;
+  line-height: 0;
+}
+
+.hero-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
+  animation: logo-in 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes logo-in {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+    filter: blur(14px) drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0) drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
+  }
+}
+
+/* indicatore di scroll */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  transform: translateX(-50%);
+  opacity: var(--cue, 1);
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+}
+
+.scroll-cue i {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 44px;
+  overflow: hidden;
+  background: rgba(239, 237, 201, 0.25);
+}
+
+.scroll-cue i::after {
+  content: "";
+  position: absolute;
+  top: -45%;
+  left: 0;
+  width: 1px;
+  height: 45%;
+  background: var(--cream);
+  animation: cue-drop 2.2s ease-in-out infinite;
+}
+
+@keyframes cue-drop {
+  to { top: 110%; }
+}
+
+/* pulsante pausa/play del video */
+.video-toggle {
+  position: absolute;
+  left: clamp(1rem, 3vw, 2.2rem);
+  bottom: 2rem;
+  z-index: 3;
+  padding: 0.55rem 0.9rem 0.55rem 1.2rem;
+  background: rgba(5, 6, 8, 0.35);
+  color: var(--cream);
+  border: 1px solid rgba(239, 237, 201, 0.45);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.video-toggle:hover,
+.video-toggle:focus-visible {
+  background: var(--cream);
+  color: #0a0b0d;
+}
+
+/* ---------- 7. Fascia nera in basso: scritta che scorre + pulsante ---------- */
+.hero-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.4rem, 4vh, 2.4rem);
+  padding-bottom: clamp(1.6rem, 6vh, 3.4rem);
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 2.4vw, 1.9rem);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track span {
+  padding-right: 3rem;
+}
+
+/* il contenuto è doppio: scorrere del 50% e ripartire non si vede */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- 8. Footer ---------- */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38vh;
+  text-align: center;
+  border-top: 1px solid rgba(239, 237, 201, 0.12);
+}
+
+.footer p {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  color: rgba(239, 237, 201, 0.55);
+}
+
+/* ---------- 9. Responsive ---------- */
+@media (max-width: 859.98px) {
+  .nav-links {
+    display: none;
+  }
+
+  .btn-nav {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 599.98px) {
+  .hero-logo-wrap {
+    width: 96vw;
+    top: 40%;
+  }
+
+  .btn-wide {
+    padding: 0.95rem 2.4rem;
+  }
+}
+
+/* ---------- 10. Accessibilità ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-logo,
+  .marquee-track,
+  .scroll-cue i::after {
+    animation: none;
+  }
+}
+
+
+/* =========================================================
+   11. PAGINA informazioni.html
+   ========================================================= */
+
+/* ---------- apparizione graduale al passaggio ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.9s ease var(--d, 0s),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s);
+}
+
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- intestazione ---------- */
+.info-hero {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(7rem, 17vh, 10rem) clamp(1rem, 4vw, 3rem) 3.5rem;
+}
+
+.info-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 11vw, 9rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.info-lead {
+  margin: 1.4rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: rgba(239, 237, 201, 0.72);
+}
+
+.info-jump {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.info-jump a {
+  position: relative;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(239, 237, 201, 0.35);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.info-jump a:hover,
+.info-jump a:focus-visible {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+/* voce di menu della pagina attuale */
+.nav-links a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+/* ---------- sedi ---------- */
+.sede {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 5rem clamp(1rem, 4vw, 3rem) 6rem;
+  border-top: 1px solid rgba(239, 237, 201, 0.12);
+  scroll-margin-top: 3rem;
+}
+
+.sede-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "num  num"
+    "city address"
+    "city button";
+  align-items: end;
+  column-gap: 3rem;
+  row-gap: 1.2rem;
+  margin-bottom: 3.5rem;
+}
+
+.sede-num {
+  grid-area: num;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: var(--blue);
+}
+
+.sede-city {
+  grid-area: city;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 8.5vw, 6.8rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.sede-address {
+  grid-area: address;
+  justify-self: end;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-align: right;
+}
+
+.sede-head .btn-cream {
+  grid-area: button;
+  justify-self: end;
+}
+
+/* ---------- galleria: tre foto a scalini ---------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.8rem, 2vw, 1.6rem);
+  padding-bottom: 5rem;
+}
+
+.shot:nth-child(2) { margin-top: 3rem; }
+.shot:nth-child(3) { margin-top: 6rem; }
+
+.shot {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: #0d0f12;
+  cursor: zoom-in;
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.9s ease;
+}
+
+.shot:hover img,
+.shot:focus-visible img {
+  transform: scale(1.05);
+  filter: brightness(1);
+}
+
+.shot::after {
+  content: "INGRANDISCI";
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--cream);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
+.shot:hover::after,
+.shot:focus-visible::after {
+  opacity: 1;
+  transform: none;
+}
+
+.page-info .back-wrap {
+  margin: 1rem 0 5rem;
+  text-align: center;
+}
+
+.footer-short {
+  min-height: 0;
+  padding: 3rem 1rem;
+}
+
+/* ---------- finestra per ingrandire le foto ---------- */
+.lightbox {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--cream);
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox::backdrop {
+  background: rgba(5, 6, 8, 0.94);
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+.lb-figure {
+  margin: 0;
+  text-align: center;
+}
+
+.lb-figure img {
+  display: block;
+  max-width: 88vw;
+  max-height: 82vh;
+  max-height: 82dvh;
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+}
+
+.lb-count {
+  margin-top: 0.9rem;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: rgba(239, 237, 201, 0.7);
+}
+
+.lb-close {
+  position: absolute;
+  top: 1.2rem;
+  right: clamp(1rem, 3vw, 2.2rem);
+  padding: 0.6rem 0.9rem 0.6rem 1.2rem;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(239, 237, 201, 0.45);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  width: 3rem;
+  height: 3rem;
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(239, 237, 201, 0.45);
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.lb-prev { left: clamp(0.6rem, 2vw, 1.6rem); }
+.lb-next { right: clamp(0.6rem, 2vw, 1.6rem); }
+
+.lb-close:hover,
+.lb-close:focus-visible,
+.lb-nav:hover,
+.lb-nav:focus-visible {
+  background: var(--cream);
+  color: #0a0b0d;
+}
+
+/* ---------- telefono ---------- */
+@media (max-width: 799.98px) {
+  .sede-head {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "num"
+      "city"
+      "address"
+      "button";
+    row-gap: 1rem;
+  }
+
+  .sede-address,
+  .sede-head .btn-cream {
+    justify-self: start;
+    text-align: left;
+  }
+
+  /* foto in fila, da far scorrere col dito */
+  .gallery {
+    display: flex;
+    gap: 0.8rem;
+    margin: 0 calc(-1 * clamp(1rem, 4vw, 3rem));
+    padding: 0 clamp(1rem, 4vw, 3rem) 2.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shot,
+  .shot:nth-child(2),
+  .shot:nth-child(3) {
+    flex: 0 0 78%;
+    margin-top: 0;
+    scroll-snap-align: center;
+  }
+
+  .shot::after {
+    opacity: 0;
+  }
+
+  .lb-nav {
+    top: auto;
+    bottom: 1.4rem;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .shot img {
+    transition: none;
+  }
+}
+
+
+/* =========================================================
+   12. PAGINA contatti.html
+   ========================================================= */
+
+.contact-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 4rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+/* scheda cliccabile */
+.contact-card {
+  position: relative;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.4rem;
+  padding: clamp(1.3rem, 3vw, 2rem);
+  overflow: hidden;
+  border: 1px solid rgba(239, 237, 201, 0.2);
+  background: #0b0d10;
+  color: var(--cream);
+  transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+/* sfondo crema che sale dal basso al passaggio */
+.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--cream);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+  color: #0a0b0d;
+  border-color: var(--cream);
+}
+
+.contact-card:hover::before,
+.contact-card:focus-visible::before {
+  transform: scaleY(1);
+}
+
+.contact-icon {
+  display: grid;
+  place-items: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.contact-icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.contact-card:hover .contact-icon,
+.contact-card:focus-visible .contact-icon {
+  transform: rotate(-8deg) scale(1.06);
+}
+
+.contact-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.contact-label {
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.contact-value {
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 2.5vw, 1.7rem);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.contact-arrow {
+  font-size: 1.6rem;
+  line-height: 1;
+  transition: transform 0.4s ease;
+}
+
+.contact-card:hover .contact-arrow,
+.contact-card:focus-visible .contact-arrow {
+  transform: translateX(6px);
+}
+
+@media (max-width: 799.98px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-icon {
+    width: 3.1rem;
+    height: 3.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-card::before,
+  .contact-icon,
+  .contact-arrow {
+    transition: none;
+  }
+}
+
+
+/* =========================================================
+   13. PAGINA prenota.html
+   ========================================================= */
+
+.book-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  border-top: 1px solid rgba(239, 237, 201, 0.12);
+}
+
+.book-head {
+  margin-bottom: 2.5rem;
+}
+
+.book-num {
+  margin: 0 0 0.8rem;
+  font-family: var(--display);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: var(--blue);
+}
+
+/* stesso carattere del titolo "PRENOTA ORA", un po' più piccolo */
+.book-title {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 8.6vw, 3.6rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+/* l'ultimo titolo è una frase lunga: lo tengo più contenuto */
+.book-other .book-title {
+  font-size: clamp(1.8rem, 4.6vw, 3.6rem);
+}
+
+.book-kicker {
+  margin: 1.2rem 0 0;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+
+.book-text {
+  max-width: 62ch;
+  margin: 0.8rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: rgba(239, 237, 201, 0.78);
+}
+
+.book-step {
+  margin: 0 0 1rem;
+  padding: 0;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(239, 237, 201, 0.7);
+}
+
+/* ---------- pannello affitto: due colonne ---------- */
+.book-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  padding: clamp(1.2rem, 3vw, 2.4rem);
+  border: 1px solid rgba(239, 237, 201, 0.2);
+  background: #0b0d10;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+}
+
+button.btn-cream {
+  border: 0;
+  cursor: pointer;
+}
+
+button.btn-cream:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button.btn-cream:disabled:hover {
+  background: var(--cream);
+  color: #0a0b0d;
+}
+
+/* ---------- calendario ---------- */
+.cal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.cal-month {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.2rem;
+}
+
+.cal-nav {
+  width: 2.6rem;
+  height: 2.6rem;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(239, 237, 201, 0.4);
+  border-radius: 50%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cal-nav:hover:not(:disabled),
+.cal-nav:focus-visible {
+  background: var(--cream);
+  color: #0a0b0d;
+}
+
+.cal-nav:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.cal-week,
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.3rem;
+}
+
+.cal-week {
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(239, 237, 201, 0.5);
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  padding: 0;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(239, 237, 201, 0.28);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.cal-day:hover:not(:disabled) {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.cal-day.is-today {
+  border-color: var(--cream);
+}
+
+.cal-day.is-selected {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: #0a0b0d;
+}
+
+/* giorni non disponibili: spenti e barrati */
+.cal-day.is-off,
+.cal-day:disabled {
+  border-color: rgba(239, 237, 201, 0.1);
+  color: rgba(239, 237, 201, 0.25);
+  background:
+    linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(239, 237, 201, 0.18) 50%, transparent calc(50% + 0.5px));
+  cursor: not-allowed;
+}
+
+.cal-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  color: rgba(239, 237, 201, 0.7);
+}
+
+.lg {
+  display: inline-block;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-right: 0.5rem;
+  vertical-align: -1px;
+  border: 1px solid rgba(239, 237, 201, 0.5);
+}
+
+.lg-off {
+  border-color: rgba(239, 237, 201, 0.15);
+  background: linear-gradient(to top right, transparent 45%, rgba(239, 237, 201, 0.3) 50%, transparent 55%);
+}
+
+.lg-sel {
+  background: var(--cream);
+  border-color: var(--cream);
+}
+
+/* ---------- orari ---------- */
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.slots-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: rgba(239, 237, 201, 0.55);
+}
+
+.slot {
+  padding: 0.7rem 0;
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(239, 237, 201, 0.35);
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.slot small {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.slot:hover:not(:disabled) {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.slot.is-selected {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: #0a0b0d;
+}
+
+.slot:disabled {
+  border-color: rgba(239, 237, 201, 0.1);
+  color: rgba(239, 237, 201, 0.25);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* ---------- durata ---------- */
+.duration {
+  margin: 0 0 2rem;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+.seg {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+}
+
+.seg label {
+  position: relative;
+  display: block;
+}
+
+.seg input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+}
+
+.seg span {
+  display: block;
+  padding: 0.75rem 0.2rem;
+  text-align: center;
+  border: 1px solid rgba(239, 237, 201, 0.35);
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.seg input:hover + span {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.seg input:checked + span {
+  background: var(--cream);
+  border-color: var(--cream);
+  color: #0a0b0d;
+}
+
+.seg input:focus-visible + span,
+.slot:focus-visible,
+.cal-day:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.dur-note {
+  margin: 0.8rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(239, 237, 201, 0.6);
+}
+
+.dur-note a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
+}
+
+.dur-note a:hover,
+.dur-note a:focus-visible {
+  color: var(--blue);
+}
+
+/* ---------- totale ---------- */
+.total {
+  margin-bottom: 1.5rem;
+  padding: 1.4rem 0;
+  border-top: 1px solid rgba(239, 237, 201, 0.2);
+  border-bottom: 1px solid rgba(239, 237, 201, 0.2);
+}
+
+.total-label {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(239, 237, 201, 0.7);
+}
+
+.total-value {
+  margin: 0.4rem 0;
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.1;
+}
+
+.total-note {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--blue);
+}
+
+.total-fine {
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(239, 237, 201, 0.6);
+}
+
+/* ---------- offerte con fonico ---------- */
+.offers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+}
+
+.offer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border: 1px solid rgba(239, 237, 201, 0.2);
+  background: #0b0d10;
+  transition: border-color 0.4s ease, transform 0.4s ease;
+}
+
+.offer:hover {
+  border-color: var(--cream);
+  transform: translateY(-4px);
+}
+
+.offer-promo {
+  border-color: var(--blue);
+}
+
+.offer-tag {
+  margin: 0 0 1.2rem;
+  padding: 0.3rem 0.8rem;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.offer-tag-plain {
+  background: transparent;
+  color: rgba(239, 237, 201, 0.7);
+  border: 1px solid rgba(239, 237, 201, 0.35);
+}
+
+.offer-name {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  line-height: 1.15;
+}
+
+.offer-price {
+  margin: 1rem 0;
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 1;
+  color: var(--cream);
+}
+
+.offer-text {
+  flex: 1;
+  margin: 0 0 1.6rem;
+  line-height: 1.7;
+  color: rgba(239, 237, 201, 0.75);
+}
+
+.offer-help {
+  margin: 1.6rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(239, 237, 201, 0.6);
+}
+
+.offer-note {
+  min-height: 1.4em;
+  margin: 0.6rem 0 0;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #ff9d8a;
+}
+
+/* ---------- qualcosa di diverso ---------- */
+.book-last {
+  padding-bottom: 6rem;
+}
+
+.book-other {
+  max-width: 62ch;
+}
+
+.book-other .book-text {
+  margin-bottom: 2rem;
+}
+
+/* ---------- popup di conferma ---------- */
+.bk-dialog {
+  width: min(92vw, 520px);
+  margin: auto;
+  padding: clamp(1.6rem, 4vw, 2.4rem);
+  border: 1px solid rgba(239, 237, 201, 0.3);
+  background: #0b0d10;
+  color: var(--cream);
+}
+
+.bk-dialog::backdrop {
+  background: rgba(5, 6, 8, 0.9);
+}
+
+.bk-dialog .lb-close {
+  top: 1rem;
+  right: 1rem;
+}
+
+.bk-title {
+  margin: 0 3rem 0.6rem 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 5vw, 2.3rem);
+  line-height: 1.1;
+}
+
+.bk-sub {
+  margin: 0 0 1.6rem;
+  color: rgba(239, 237, 201, 0.75);
+}
+
+.bk-sum {
+  margin: 0 0 1.6rem;
+}
+
+.bk-sum > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(239, 237, 201, 0.15);
+}
+
+.bk-sum dt {
+  flex: none;
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(239, 237, 201, 0.6);
+}
+
+.bk-sum dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+}
+
+.bk-total dd {
+  font-family: var(--display);
+  font-size: 1.5rem;
+}
+
+.bk-fine {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(239, 237, 201, 0.6);
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* ---------- telefono ---------- */
+@media (max-width: 859.98px) {
+  .book-panel,
+  .offers {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offer,
+  .cal-day,
+  .slot,
+  .seg span {
+    transition: none;
+  }
+}

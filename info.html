@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informazioni | Crimi Studio</title>
+  <meta name="description" content="Le sedi di Crimi Studio: Milano, via Giovanni Panici 37, e Alessandria, via Augusto Righi 25.">
+  <meta name="theme-color" content="#050608">
+
+  <!--google fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Archivo+Black&display=swap" rel="stylesheet">
+
+  <!--css style-->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-info">
+  <!--navbar (sulle pagine interne è sempre leggibile)-->
+  <header class="nav is-solid" id="nav">
+    <a class="nav-brand" href="./index.html">CRIMISTUDIO</a>
+
+    <nav class="nav-links" aria-label="Menu principale">
+      <a href="./info.html" aria-current="page">Informazioni</a>
+      <a href="./contact.html">Contatti</a>
+    </nav>
+
+    <a class="btn-cream btn-nav" href="./prenota.html">Prenota ora</a>
+  </header>
+
+  <main>
+    <!--intestazione-->
+    <section class="info-hero">
+      <h1 class="info-title" data-reveal>INFORMAZIONI</h1>
+      <p class="info-lead" data-reveal style="--d: 0.12s">Sedi</p>
+      <nav class="info-jump" aria-label="Vai alla sede" data-reveal style="--d: 0.24s">
+        <a href="#milano">Milano</a>
+        <a href="#alessandria">Alessandria</a>
+      </nav>
+    </section>
+
+    <!--sede 1: Milano-->
+    <section class="sede" id="milano" aria-labelledby="titolo-milano">
+      <div class="sede-head" data-reveal>
+        <h2 class="sede-city" id="titolo-milano">MILANO</h2>
+        <address class="sede-address">
+          Via Giovanni Pacini, 37
+        </address>
+        <a class="btn-cream" href="https://www.google.com/maps/search/?api=1&query=Via%20Giovanni%20Pacini%2037%2C%20Milano" target="_blank" rel="noopener">Apri su Maps</a>
+      </div>
+
+      <div class="gallery">
+        <button class="shot" type="button" data-group="milano" data-reveal style="--d: 0s">
+          <img src="./media/milano1.jpeg" alt="Sala regia di Milano con monitor, insegna CRIMI e luci viola" loading="lazy" width="1100" height="1467">
+        </button>
+        <button class="shot" type="button" data-group="milano" data-reveal style="--d: 0.15s">
+          <img src="./media/milano2.jpeg" alt="Sala di Milano con pianoforte, divano e luci blu" loading="lazy" width="1100" height="1467">
+        </button>
+        <button class="shot" type="button" data-group="milano" data-reveal style="--d: 0.3s">
+          <img src="./media/milano3.jpeg" alt="Microfono a condensatore davanti all'insegna CRIMI, sede di Milano" loading="lazy" width="1100" height="1467">
+        </button>
+      </div>
+    </section>
+
+    <!--sede 2: Alessandria-->
+    <section class="sede" id="alessandria" aria-labelledby="titolo-alessandria">
+      <div class="sede-head" data-reveal>
+        <h2 class="sede-city" id="titolo-alessandria">ALESSANDRIA</h2>
+        <address class="sede-address">
+          Via Augusto Righi, 25
+        </address>
+        <a class="btn-cream" href="https://www.google.com/maps/search/?api=1&query=Via%20Augusto%20Righi%2025%2C%20Alessandria" target="_blank" rel="noopener">Apri su Maps</a>
+      </div>
+
+      <div class="gallery">
+        <button class="shot" type="button" data-group="alessandria" data-reveal style="--d: 0s">
+          <img src="./media/ale3.jpeg" alt="Sala di registrazione di Alessandria con pannello acustico a rombo e microfono" loading="lazy" width="1100" height="1467">
+        </button>
+        <button class="shot" type="button" data-group="alessandria" data-reveal style="--d: 0.15s">
+          <img src="./media/ale2.jpeg" alt="Sala di registrazione di Alessandria vista dal basso, con la finestra sulla regia" loading="lazy" width="1100" height="1467">
+        </button>
+        <button class="shot" type="button" data-group="alessandria" data-reveal style="--d: 0.3s">
+          <img src="./media/ale1.jpeg" alt="Sala regia di Alessandria con scrivania, insegna CRIMI e luci viola sul soffitto" loading="lazy" width="1100" height="1467">
+        </button>
+      </div>
+    </section>
+
+    <div class="back-wrap text-center">
+      <a href="./index.html" class="btn-cream btn-wide">Torna alla home</a>
+    </div>
+  </main>
+
+  <footer class="footer footer-short">
+    <p>CRIMI STUDIO</p>
+  </footer>
+
+  <!--finestra per ingrandire le foto-->
+  <dialog class="lightbox" id="lightbox" aria-label="Galleria foto">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Chiudi">CHIUDI</button>
+    <button class="lb-nav lb-prev" id="lbPrev" type="button" aria-label="Foto precedente">&#8592;</button>
+    <figure class="lb-figure">
+      <img id="lbImg" src="" alt="">
+      <figcaption id="lbCount" class="lb-count"></figcaption>
+    </figure>
+    <button class="lb-nav lb-next" id="lbNext" type="button" aria-label="Foto successiva">&#8594;</button>
+  </dialog>
+
+  <!--js del sito-->
+  <script src="script.js"></script>
+</body>
+</html>
