@@ -15,24 +15,25 @@
 
   <!--css style-->
   <link rel="stylesheet" href="style.css">
-  <!--correzioni mobile: deve stare DOPO style.css-->
-  <link rel="stylesheet" href="mobile.css">
 </head>
 
 <body>
   <!--navbar-->
   <header class="nav" id="nav">
-    <a class="nav-brand" href="#top">CRIMISTUDIO</a>
+    <a class="nav-brand" href="#top">CRIMI STUDIO</a>
 
     <nav class="nav-links" id="navLinks" aria-label="Menu principale">
       <a href="./info.html">Informazioni</a>
       <a href="./contact.html">Contatti</a>
     </nav>
 
+    <!-- Tasto Prenota ora visibile di fianco all'hamburger su mobile -->
     <a class="btn-cream btn-nav" href="./prenota.html">Prenota ora</a>
 
     <!--hamburger: visibile solo su mobile-->
     <button class="nav-toggle" id="navToggle" type="button" aria-label="Apri il menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span>
+      <span></span>
       <span></span>
     </button>
   </header>
@@ -83,26 +84,29 @@
     <p>CRIMI STUDIO</p>
   </footer>
 
-  <!--menu mobile (indipendente da script.js)-->
+  <!--menu mobile script-->
   <script>
     (function () {
       var nav = document.getElementById('nav');
       var toggle = document.getElementById('navToggle');
-      if (!nav || !toggle) return;
+      var links = document.getElementById('navLinks');
+      if (!nav || !toggle || !links) return;
 
       function setOpen(open) {
-        nav.classList.toggle('is-open', open);
+        toggle.classList.toggle('is-active', open);
+        links.classList.toggle('is-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         toggle.setAttribute('aria-label', open ? 'Chiudi il menu' : 'Apri il menu');
+        document.body.style.overflow = open ? 'hidden' : '';
       }
 
       toggle.addEventListener('click', function () {
-        setOpen(!nav.classList.contains('is-open'));
+        setOpen(!links.classList.contains('is-open'));
       });
 
       // chiudi quando tocchi un link, premi Esc o tocchi fuori dal menu
-      nav.addEventListener('click', function (e) {
-        if (e.target.closest('.nav-links a')) setOpen(false);
+      links.addEventListener('click', function (e) {
+        if (e.target.closest('a')) setOpen(false);
       });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') setOpen(false);
@@ -111,7 +115,7 @@
         if (!nav.contains(e.target)) setOpen(false);
       });
       window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) setOpen(false);
+        if (window.innerWidth > 859.98) setOpen(false);
       });
     })();
   </script>
