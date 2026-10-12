@@ -167,6 +167,12 @@ a:focus-visible {
   height: 100svh;
   overflow: hidden;
   background: var(--black);
+  
+  /* Fix accelerazione hardware per prevenire crash GPU e schermata bianca su mobile */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .hero-media {
@@ -174,6 +180,8 @@ a:focus-visible {
   inset: 0;
   z-index: 2;
   clip-path: inset(0 0 var(--cut, 0%) 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .hero-video {
@@ -193,7 +201,7 @@ a:focus-visible {
   pointer-events: none;
 }
 
-/* ---------- 6. Logo gigante (ridimensionato) ---------- */
+/* ---------- 6. Logo gigante ---------- */
 .hero-logo-wrap {
   position: absolute;
   left: 50%;
@@ -204,6 +212,12 @@ a:focus-visible {
   transform: translate3d(-50%, calc(-50% + var(--ly, 0px)), 0);
   will-change: transform;
   line-height: 0;
+
+  /* Fix rendering grafico su smartphone */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
 }
 
 .hero-logo {
@@ -211,19 +225,18 @@ a:focus-visible {
   width: 100%;
   height: auto;
   filter: drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
-  animation: logo-in 1.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: logo-in 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
+/* Animazione ottimizzata per evitare glitch di memoria GPU su browser mobile */
 @keyframes logo-in {
   from {
     opacity: 0;
-    transform: scale(1.08);
-    filter: blur(14px) drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
+    transform: scale(1.05);
   }
   to {
     opacity: 1;
     transform: scale(1);
-    filter: blur(0) drop-shadow(0 6px 30px rgba(0, 0, 0, 0.45));
   }
 }
 
