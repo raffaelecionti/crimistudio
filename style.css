@@ -5,9 +5,9 @@
 /* ---------- 1. Variabili ---------- */
 :root {
   --black: #050608;
-  --cream: #efedc9;      /* crema, come nel sito di riferimento */
-  --blue: #2f6bff;       /* il blu dei led dello studio */
-  --veil: 0.45;          /* effetto opaco sul video: 0 = nessuno, 1 = tutto nero */
+  --cream: #ffffff;      
+  --blue: #2f6bff;       
+  --veil: 0.45;          
   --font: "Archivo", system-ui, sans-serif;
   --display: "Archivo Black", "Archivo", sans-serif;
 }
@@ -82,17 +82,20 @@ a:focus-visible {
   transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
 }
 
-/* dopo la hero la barra diventa leggibile su qualsiasi sfondo */
 .nav.is-solid {
   background: rgba(5, 6, 8, 0.72);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
 }
 
+/* Stile del brand identico al footer */
 .nav-brand {
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  padding-left: 0.4em;
+  text-transform: uppercase;
 }
 
 .nav-links {
@@ -108,7 +111,6 @@ a:focus-visible {
   padding: 0.2rem 0;
 }
 
-/* sottolineatura che cresce */
 .nav-links a::after {
   content: "";
   position: absolute;
@@ -132,7 +134,26 @@ a:focus-visible {
   font-size: 0.8rem;
 }
 
-/* ---------- 5. Hero: il track dà lo spazio per lo scroll, la hero resta fissa ---------- */
+/* Pulsante Hamburger (inizialmente nascosto su desktop) */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: 60;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--cream);
+  margin: 5px 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ---------- 5. Hero ---------- */
 .hero-track {
   position: relative;
   height: 200vh;
@@ -148,7 +169,6 @@ a:focus-visible {
   background: var(--black);
 }
 
-/* blocco video + logo: lo script alza --cut e lo ritaglia dal basso */
 .hero-media {
   position: absolute;
   inset: 0;
@@ -164,7 +184,6 @@ a:focus-visible {
   object-fit: cover;
 }
 
-/* velo opaco sul video: la forza si regola con --veil (in cima al file) */
 .hero-shade {
   position: absolute;
   inset: 0;
@@ -174,15 +193,14 @@ a:focus-visible {
   pointer-events: none;
 }
 
-/* ---------- 6. Logo gigante ---------- */
+/* ---------- 6. Logo gigante (ridimensionato) ---------- */
 .hero-logo-wrap {
   position: absolute;
   left: 50%;
   top: 44%;
   z-index: 2;
   margin: 0;
-  width: min(80vw, 125vh);
-  /* --ly sale con lo scroll (lo scrive script.js) */
+  width: min(70vw, 110vh);
   transform: translate3d(-50%, calc(-50% + var(--ly, 0px)), 0);
   will-change: transform;
   line-height: 0;
@@ -209,7 +227,6 @@ a:focus-visible {
   }
 }
 
-/* indicatore di scroll */
 .scroll-cue {
   position: absolute;
   left: 50%;
@@ -233,7 +250,7 @@ a:focus-visible {
   width: 1px;
   height: 44px;
   overflow: hidden;
-  background: rgba(239, 237, 201, 0.25);
+  background: rgba(255, 255, 255, 0.25);
 }
 
 .scroll-cue i::after {
@@ -251,7 +268,6 @@ a:focus-visible {
   to { top: 110%; }
 }
 
-/* pulsante pausa/play del video */
 .video-toggle {
   position: absolute;
   left: clamp(1rem, 3vw, 2.2rem);
@@ -260,7 +276,7 @@ a:focus-visible {
   padding: 0.55rem 0.9rem 0.55rem 1.2rem;
   background: rgba(5, 6, 8, 0.35);
   color: var(--cream);
-  border: 1px solid rgba(239, 237, 201, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   font-family: var(--font);
   font-weight: 700;
   font-size: 0.65rem;
@@ -275,7 +291,6 @@ a:focus-visible {
   color: #0a0b0d;
 }
 
-/* ---------- 7. Fascia nera in basso: scritta che scorre + pulsante ---------- */
 .hero-bottom {
   position: absolute;
   left: 0;
@@ -308,7 +323,6 @@ a:focus-visible {
   padding-right: 3rem;
 }
 
-/* il contenuto è doppio: scorrere del 50% e ripartire non si vede */
 @keyframes marquee {
   to { transform: translateX(-50%); }
 }
@@ -320,7 +334,7 @@ a:focus-visible {
   justify-content: center;
   min-height: 38vh;
   text-align: center;
-  border-top: 1px solid rgba(239, 237, 201, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .footer p {
@@ -329,17 +343,79 @@ a:focus-visible {
   font-size: 0.9rem;
   letter-spacing: 0.4em;
   padding-left: 0.4em;
-  color: rgba(239, 237, 201, 0.55);
+  color: rgba(255, 255, 255, 0.55);
 }
 
-/* ---------- 9. Responsive ---------- */
+/* ---------- 9. Responsive & Menu a Tendina Mobile ---------- */
 @media (max-width: 859.98px) {
-  .nav-links {
-    display: none;
+  .nav {
+    justify-content: space-between;
   }
 
+  .nav-toggle {
+    display: block; /* Mostra l'hamburger su mobile */
+  }
+
+  /* Tasto prenota affiancato all'hamburger */
   .btn-nav {
+    display: inline-block;
     margin-left: auto;
+    margin-right: 0.4rem;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.75rem;
+  }
+
+  /* Menu a TENDINA mobile ancorato sotto l'header */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(5, 6, 8, 0.96);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    flex-direction: column;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 2rem 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    
+    /* Stato CHIUSO: totalmente nascosto e inattivo */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    z-index: 55;
+    margin-left: 0;
+  }
+
+  /* Stato APERTO: scende e diventa visibile */
+  .nav-links.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Animazione hamburger in X */
+  .nav-toggle.is-active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle.is-active span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle.is-active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 }
 
@@ -371,8 +447,6 @@ a:focus-visible {
 /* =========================================================
    11. PAGINA informazioni.html
    ========================================================= */
-
-/* ---------- apparizione graduale al passaggio ---------- */
 .js [data-reveal] {
   opacity: 0;
   transform: translateY(18px);
@@ -386,7 +460,6 @@ a:focus-visible {
   transform: none;
 }
 
-/* ---------- intestazione ---------- */
 .info-hero {
   max-width: 1400px;
   margin: 0 auto;
@@ -406,7 +479,7 @@ a:focus-visible {
   margin: 1.4rem 0 0;
   font-size: 1.15rem;
   font-weight: 500;
-  color: rgba(239, 237, 201, 0.72);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .info-jump {
@@ -422,7 +495,7 @@ a:focus-visible {
 .info-jump a {
   position: relative;
   padding-bottom: 0.3rem;
-  border-bottom: 1px solid rgba(239, 237, 201, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 
@@ -432,17 +505,15 @@ a:focus-visible {
   border-color: var(--blue);
 }
 
-/* voce di menu della pagina attuale */
 .nav-links a[aria-current="page"]::after {
   transform: scaleX(1);
 }
 
-/* ---------- sedi ---------- */
 .sede {
   max-width: 1400px;
   margin: 0 auto;
   padding: 5rem clamp(1rem, 4vw, 3rem) 6rem;
-  border-top: 1px solid rgba(239, 237, 201, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   scroll-margin-top: 3rem;
 }
 
@@ -492,7 +563,6 @@ a:focus-visible {
   justify-self: end;
 }
 
-/* ---------- galleria: tre foto a scalini ---------- */
 .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -560,7 +630,6 @@ a:focus-visible {
   padding: 3rem 1rem;
 }
 
-/* ---------- finestra per ingrandire le foto ---------- */
 .lightbox {
   width: 100vw;
   height: 100vh;
@@ -608,7 +677,7 @@ body:has(dialog[open]) {
   font-weight: 700;
   font-size: 0.7rem;
   letter-spacing: 0.3em;
-  color: rgba(239, 237, 201, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .lb-close {
@@ -618,7 +687,7 @@ body:has(dialog[open]) {
   padding: 0.6rem 0.9rem 0.6rem 1.2rem;
   background: transparent;
   color: var(--cream);
-  border: 1px solid rgba(239, 237, 201, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   font-family: var(--font);
   font-weight: 700;
   font-size: 0.65rem;
@@ -635,7 +704,7 @@ body:has(dialog[open]) {
   transform: translateY(-50%);
   background: transparent;
   color: var(--cream);
-  border: 1px solid rgba(239, 237, 201, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
   font-size: 1.2rem;
   cursor: pointer;
@@ -653,7 +722,6 @@ body:has(dialog[open]) {
   color: #0a0b0d;
 }
 
-/* ---------- telefono ---------- */
 @media (max-width: 799.98px) {
   .sede-head {
     grid-template-columns: 1fr;
@@ -671,7 +739,6 @@ body:has(dialog[open]) {
     text-align: left;
   }
 
-  /* foto in fila, da far scorrere col dito */
   .gallery {
     display: flex;
     gap: 0.8rem;
@@ -701,23 +768,10 @@ body:has(dialog[open]) {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .js [data-reveal] {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .shot img {
-    transition: none;
-  }
-}
-
 
 /* =========================================================
    12. PAGINA contatti.html
    ========================================================= */
-
 .contact-section {
   max-width: 1400px;
   margin: 0 auto;
@@ -730,7 +784,6 @@ body:has(dialog[open]) {
   gap: clamp(0.8rem, 2vw, 1.4rem);
 }
 
-/* scheda cliccabile */
 .contact-card {
   position: relative;
   z-index: 0;
@@ -740,13 +793,12 @@ body:has(dialog[open]) {
   gap: 1.4rem;
   padding: clamp(1.3rem, 3vw, 2rem);
   overflow: hidden;
-  border: 1px solid rgba(239, 237, 201, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   background: #0b0d10;
   color: var(--cream);
   transition: color 0.4s ease, border-color 0.4s ease;
 }
 
-/* sfondo crema che sale dal basso al passaggio */
 .contact-card::before {
   content: "";
   position: absolute;
@@ -826,18 +878,9 @@ body:has(dialog[open]) {
   .contact-grid {
     grid-template-columns: 1fr;
   }
-
   .contact-icon {
     width: 3.1rem;
     height: 3.1rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-card::before,
-  .contact-icon,
-  .contact-arrow {
-    transition: none;
   }
 }
 
@@ -845,12 +888,11 @@ body:has(dialog[open]) {
 /* =========================================================
    13. PAGINA prenota.html
    ========================================================= */
-
 .book-section {
   max-width: 1400px;
   margin: 0 auto;
   padding: 4.5rem clamp(1rem, 4vw, 3rem) 3rem;
-  border-top: 1px solid rgba(239, 237, 201, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .book-head {
@@ -865,7 +907,6 @@ body:has(dialog[open]) {
   color: var(--blue);
 }
 
-/* stesso carattere del titolo "PRENOTA ORA", un po' più piccolo */
 .book-title {
   margin: 0;
   font-family: var(--display);
@@ -876,7 +917,6 @@ body:has(dialog[open]) {
   text-transform: uppercase;
 }
 
-/* l'ultimo titolo è una frase lunga: lo tengo più contenuto */
 .book-other .book-title {
   font-size: clamp(1.8rem, 4.6vw, 3.6rem);
 }
@@ -895,7 +935,7 @@ body:has(dialog[open]) {
   margin: 0.8rem 0 0;
   font-size: 1.1rem;
   line-height: 1.7;
-  color: rgba(239, 237, 201, 0.78);
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .book-step {
@@ -905,16 +945,15 @@ body:has(dialog[open]) {
   font-size: 0.75rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(239, 237, 201, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* ---------- pannello affitto: due colonne ---------- */
 .book-panel {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 4vw, 3.5rem);
   padding: clamp(1.2rem, 3vw, 2.4rem);
-  border: 1px solid rgba(239, 237, 201, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   background: #0b0d10;
 }
 
@@ -942,7 +981,6 @@ button.btn-cream:disabled:hover {
   color: #0a0b0d;
 }
 
-/* ---------- calendario ---------- */
 .cal-bar {
   display: flex;
   align-items: center;
@@ -961,7 +999,7 @@ button.btn-cream:disabled:hover {
   height: 2.6rem;
   background: transparent;
   color: var(--cream);
-  border: 1px solid rgba(239, 237, 201, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   font-size: 1rem;
   cursor: pointer;
@@ -993,7 +1031,7 @@ button.btn-cream:disabled:hover {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(239, 237, 201, 0.5);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .cal-day {
@@ -1001,7 +1039,7 @@ button.btn-cream:disabled:hover {
   padding: 0;
   background: transparent;
   color: var(--cream);
-  border: 1px solid rgba(239, 237, 201, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   font-family: var(--font);
   font-weight: 700;
   font-size: 0.9rem;
@@ -1024,13 +1062,12 @@ button.btn-cream:disabled:hover {
   color: #0a0b0d;
 }
 
-/* giorni non disponibili: spenti e barrati */
 .cal-day.is-off,
 .cal-day:disabled {
-  border-color: rgba(239, 237, 201, 0.1);
-  color: rgba(239, 237, 201, 0.25);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.25);
   background:
-    linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(239, 237, 201, 0.18) 50%, transparent calc(50% + 0.5px));
+    linear-gradient(to top right, transparent calc(50% - 0.5px), rgba(255, 255, 255, 0.18) 50%, transparent calc(50% + 0.5px));
   cursor: not-allowed;
 }
 
@@ -1042,7 +1079,7 @@ button.btn-cream:disabled:hover {
   padding: 0;
   list-style: none;
   font-size: 0.8rem;
-  color: rgba(239, 237, 201, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .lg {
@@ -1051,12 +1088,12 @@ button.btn-cream:disabled:hover {
   height: 0.8rem;
   margin-right: 0.5rem;
   vertical-align: -1px;
-  border: 1px solid rgba(239, 237, 201, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .lg-off {
-  border-color: rgba(239, 237, 201, 0.15);
-  background: linear-gradient(to top right, transparent 45%, rgba(239, 237, 201, 0.3) 50%, transparent 55%);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(to top right, transparent 45%, rgba(255, 255, 255, 0.3) 50%, transparent 55%);
 }
 
 .lg-sel {
@@ -1064,7 +1101,6 @@ button.btn-cream:disabled:hover {
   border-color: var(--cream);
 }
 
-/* ---------- orari ---------- */
 .slots {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
@@ -1075,14 +1111,14 @@ button.btn-cream:disabled:hover {
 .slots-empty {
   grid-column: 1 / -1;
   margin: 0;
-  color: rgba(239, 237, 201, 0.55);
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .slot {
   padding: 0.7rem 0;
   background: transparent;
   color: var(--cream);
-  border: 1px solid rgba(239, 237, 201, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   font-family: var(--font);
   font-weight: 700;
   font-size: 0.85rem;
@@ -1110,13 +1146,12 @@ button.btn-cream:disabled:hover {
 }
 
 .slot:disabled {
-  border-color: rgba(239, 237, 201, 0.1);
-  color: rgba(239, 237, 201, 0.25);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.25);
   text-decoration: line-through;
   cursor: not-allowed;
 }
 
-/* ---------- durata ---------- */
 .duration {
   margin: 0 0 2rem;
   padding: 0;
@@ -1147,7 +1182,7 @@ button.btn-cream:disabled:hover {
   display: block;
   padding: 0.75rem 0.2rem;
   text-align: center;
-  border: 1px solid rgba(239, 237, 201, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   font-weight: 700;
   font-size: 0.85rem;
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
@@ -1164,17 +1199,10 @@ button.btn-cream:disabled:hover {
   color: #0a0b0d;
 }
 
-.seg input:focus-visible + span,
-.slot:focus-visible,
-.cal-day:focus-visible {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
-}
-
 .dur-note {
   margin: 0.8rem 0 0;
   font-size: 0.8rem;
-  color: rgba(239, 237, 201, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .dur-note a {
@@ -1189,12 +1217,11 @@ button.btn-cream:disabled:hover {
   color: var(--blue);
 }
 
-/* ---------- totale ---------- */
 .total {
   margin-bottom: 1.5rem;
   padding: 1.4rem 0;
-  border-top: 1px solid rgba(239, 237, 201, 0.2);
-  border-bottom: 1px solid rgba(239, 237, 201, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .total-label {
@@ -1203,7 +1230,7 @@ button.btn-cream:disabled:hover {
   font-size: 0.75rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(239, 237, 201, 0.7);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .total-value {
@@ -1224,10 +1251,9 @@ button.btn-cream:disabled:hover {
   margin: 0.6rem 0 0;
   font-size: 0.85rem;
   line-height: 1.5;
-  color: rgba(239, 237, 201, 0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
-/* ---------- offerte con fonico ---------- */
 .offers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1239,7 +1265,7 @@ button.btn-cream:disabled:hover {
   flex-direction: column;
   align-items: flex-start;
   padding: clamp(1.4rem, 3vw, 2.2rem);
-  border: 1px solid rgba(239, 237, 201, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   background: #0b0d10;
   transition: border-color 0.4s ease, transform 0.4s ease;
 }
@@ -1266,8 +1292,8 @@ button.btn-cream:disabled:hover {
 
 .offer-tag-plain {
   background: transparent;
-  color: rgba(239, 237, 201, 0.7);
-  border: 1px solid rgba(239, 237, 201, 0.35);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 .offer-name {
@@ -1290,42 +1316,14 @@ button.btn-cream:disabled:hover {
   flex: 1;
   margin: 0 0 1.6rem;
   line-height: 1.7;
-  color: rgba(239, 237, 201, 0.75);
+  color: rgba(255, 255, 255, 0.75);
 }
 
-.offer-help {
-  margin: 1.6rem 0 0;
-  font-size: 0.9rem;
-  color: rgba(239, 237, 201, 0.6);
-}
-
-.offer-note {
-  min-height: 1.4em;
-  margin: 0.6rem 0 0;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: #ff9d8a;
-}
-
-/* ---------- qualcosa di diverso ---------- */
-.book-last {
-  padding-bottom: 6rem;
-}
-
-.book-other {
-  max-width: 62ch;
-}
-
-.book-other .book-text {
-  margin-bottom: 2rem;
-}
-
-/* ---------- popup di conferma ---------- */
 .bk-dialog {
   width: min(92vw, 520px);
   margin: auto;
   padding: clamp(1.6rem, 4vw, 2.4rem);
-  border: 1px solid rgba(239, 237, 201, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   background: #0b0d10;
   color: var(--cream);
 }
@@ -1334,80 +1332,9 @@ button.btn-cream:disabled:hover {
   background: rgba(5, 6, 8, 0.9);
 }
 
-.bk-dialog .lb-close {
-  top: 1rem;
-  right: 1rem;
-}
-
-.bk-title {
-  margin: 0 3rem 0.6rem 0;
-  font-family: var(--display);
-  font-weight: 400;
-  font-size: clamp(1.7rem, 5vw, 2.3rem);
-  line-height: 1.1;
-}
-
-.bk-sub {
-  margin: 0 0 1.6rem;
-  color: rgba(239, 237, 201, 0.75);
-}
-
-.bk-sum {
-  margin: 0 0 1.6rem;
-}
-
-.bk-sum > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 0.85rem 0;
-  border-top: 1px solid rgba(239, 237, 201, 0.15);
-}
-
-.bk-sum dt {
-  flex: none;
-  font-weight: 700;
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(239, 237, 201, 0.6);
-}
-
-.bk-sum dd {
-  margin: 0;
-  text-align: right;
-  font-weight: 700;
-}
-
-.bk-total dd {
-  font-family: var(--display);
-  font-size: 1.5rem;
-}
-
-.bk-fine {
-  margin: 1rem 0 0;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: rgba(239, 237, 201, 0.6);
-}
-
-body:has(dialog[open]) {
-  overflow: hidden;
-}
-
-/* ---------- telefono ---------- */
 @media (max-width: 859.98px) {
   .book-panel,
   .offers {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .offer,
-  .cal-day,
-  .slot,
-  .seg span {
-    transition: none;
   }
 }
